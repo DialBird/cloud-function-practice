@@ -68,12 +68,5 @@ app.get('/hello', (req, res) => {
 // });
 //
 // export default app;
-const byeWorld = (request, response) => {
-  response.send("Bye from Firebase!");
-};
 
-const keisuke = (request, response) => {
-  response.send("gooooood");
-};
-
-module.exports = { app, byeWorld, keisuke };
+module.exports = { app };
