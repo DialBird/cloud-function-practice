@@ -4,7 +4,8 @@ const Twitter = require('twitter');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-import { byeWorld } from './app.js';
+import { keisuke, byeWorld } from './app.js';
+import { sampleText } from './sampleText.js';
 
 // const config = functions.config();
 
@@ -21,7 +22,13 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
 });
 
+exports.word = functions.https.onRequest((request, response) => {
+  response.send(sampleText("foooooo"));
+});
+
 exports.byeWorld = functions.https.onRequest(byeWorld);
+
+exports.keisuke = functions.https.onRequest(keisuke);
 
 // exports.tweet = functions.https.onRequest((req, res) => {
 //   const { word, accessKey, accessSecret } = req.body;

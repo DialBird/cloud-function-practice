@@ -68,5 +68,9 @@
 //
 // export default app;
 export const byeWorld = (request, response) => {
-  response.send("Hello from Firebase!");
+  response.send("Bye from Firebase!");
+};
+
+export const keisuke = (request, response) => {
+  response.send("gooooood");
 };
