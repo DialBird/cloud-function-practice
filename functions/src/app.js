@@ -1,10 +1,10 @@
 // const admin = require('firebase-admin');
 // admin.initializeApp();
-// const express = require('express');
-// const cookieParser = require('cookie-parser')();
-// const cors = require('cors')({origin: true});
-// const app = express();
-//
+const express = require('express');
+const cookieParser = require('cookie-parser')();
+const cors = require('cors')({origin: true});
+const app = express();
+
 // const validateFirebaseIdToken = async (req, res, next) => {
 //   console.log('Check if request is authorized with Firebase ID token');
 //
@@ -44,13 +44,14 @@
 //     return;
 //   }
 // };
-//
-// app.use(cors);
-// app.use(cookieParser);
+
+app.use(cookieParser);
+app.use(cors);
 // app.use(validateFirebaseIdToken);
-// app.get('/hello', (req, res) => {
-//   res.send(`Hello ${req.user.name}`);
-// });
+app.get('/hello', (req, res) => {
+  res.send(`Hello ${req.query.name}`);
+});
+
 // app.post('/tweet', (req, res) => {
 //   const { word, accessKey, accessSecret } = req.body;
 //   cnsole.log('word', word);
@@ -67,10 +68,12 @@
 // });
 //
 // export default app;
-export const byeWorld = (request, response) => {
+const byeWorld = (request, response) => {
   response.send("Bye from Firebase!");
 };
 
-export const keisuke = (request, response) => {
+const keisuke = (request, response) => {
   response.send("gooooood");
 };
+
+module.exports = { app, byeWorld, keisuke };
