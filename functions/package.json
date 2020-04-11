@@ -3,7 +3,7 @@
   "description": "Cloud Functions for Firebase",
   "main": "dist/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel ./*.js -d dist",
+    "build": "./node_modules/.bin/babel src -d dist",
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
