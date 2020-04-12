@@ -6,8 +6,10 @@ const config = functions.config();
 passport.use(new TwitterStrategy({
   consumerKey: config.twitter.consumer_key,
   consumerSecret: config.twitter.consumer_secret,
-  callbackURL: config.twitter.callback_url
-}, (token, tokenSecret, profile, done) => {
+  callbackURL: config.twitter.callback_url,
+  passReqToCallback: true
+}, (req, token, tokenSecret, profile, done) => {
+  console.log('uid', req.session.uid);
   done(null, profile);
 }));
 passport.serializeUser((user, done) => {

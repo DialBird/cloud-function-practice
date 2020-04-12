@@ -16,7 +16,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/hello', (req, res) => { res.send(`Hello ${req.query.name}`); });
-app.get('/auth/twitter', passport.authenticate('twitter'))
+app.get('/auth/twitter', (req, res) => {
+  req.session.uid = req.query.uid;
+  passport.authenticate('twitter')(req, res);
+})
 app.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: config.session.redirect_url }), (req, res) => {
     res.redirect(config.session.redirect_url);
