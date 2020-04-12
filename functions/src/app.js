@@ -1,6 +1,7 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const cookieParser = require('cookie-parser')();
+const session = require('express-session');
 const cors = require('cors')({origin: true});
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
@@ -12,13 +13,16 @@ passport.use(new TwitterStrategy({
   consumerKey: config.twitter.consumer_key,
   consumerSecret: config.twitter.consumer_secret,
   callbackURL: config.twitter.callback_url
-}, (token, tokenSecret, profile, cb) => {
+}, (token, tokenSecret, profile, done) => {
   console.log('token', token);
   console.log('secret', tokenSecret);
+  console.log('profile', profile);
+  done(null, false);
 }));
 
 app.use(cookieParser);
 app.use(cors);
+app.use(session({secret: config.session.secret}));
 app.get('/hello', (req, res) => {
   res.send(`Hello ${req.query.name}`);
 });
