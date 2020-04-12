@@ -1,10 +1,7 @@
 const functions = require('firebase-functions');
 const escapeHtml = require('escape-html');
 const Twitter = require('twitter');
-const admin = require('firebase-admin');
 const moment = require("moment-timezone");
-
-admin.initializeApp();
 
 import { app } from './app.js';
 import { sampleText } from './sampleText.js';
