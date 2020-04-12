@@ -3,28 +3,10 @@ const express = require('express');
 const cookieParser = require('cookie-parser')();
 const session = require('express-session');
 const cors = require('cors')({origin: true});
-const passport = require('passport');
-const TwitterStrategy = require('passport-twitter').Strategy;
 const app = express();
-
 const config = functions.config();
 
-passport.use(new TwitterStrategy({
-  consumerKey: config.twitter.consumer_key,
-  consumerSecret: config.twitter.consumer_secret,
-  callbackURL: config.twitter.callback_url
-}, (token, tokenSecret, profile, done) => {
-  console.log('token', token);
-  console.log('secret', tokenSecret);
-  console.log('profile', profile);
-  done(null, profile);
-}));
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
+import { passport } from './passport';
 
 app.use(cookieParser);
 app.use(cors);
