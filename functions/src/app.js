@@ -17,19 +17,27 @@ passport.use(new TwitterStrategy({
   console.log('token', token);
   console.log('secret', tokenSecret);
   console.log('profile', profile);
-  done(null, false);
+  done(null, profile);
 }));
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
 
 app.use(cookieParser);
 app.use(cors);
 app.use(session({secret: config.session.secret}));
-app.get('/hello', (req, res) => {
-  res.send(`Hello ${req.query.name}`);
-});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/hello', (req, res) => { res.send(`Hello ${req.query.name}`); });
 app.get('/auth/twitter', passport.authenticate('twitter'))
 app.get('/auth/twitter/callback',
-  passport.authenticate('twitter'), (req, res) => {
-    res.redirect('https://example.com');
+  passport.authenticate('twitter', { failureRedirect: config.session.redirect_url }), (req, res) => {
+    res.redirect(config.session.redirect_url);
   });
 
 // app.post('/tweet', (req, res) => {
