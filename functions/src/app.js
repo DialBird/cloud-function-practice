@@ -16,11 +16,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/hello', (req, res) => { res.send(`Hello ${req.query.name}`); });
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', {
-    failureRedirect: config.session.redirect_url,
-    successRedirect: config.session.redirect_url
-  }))
+app.get('/auth/twitter', (req, res, next) => {
+  req.session.redirectTo = req.query.redirectTo;
+  passport.authenticate('twitter')(req, res, next);
+});
+app.get('/auth/twitter/callback', (req, res, next) => {
+  passport.authenticate('twitter', (err, user, info) => {
+    if (err) { return res.redirect(req.session.redirectTo); }
+    const { token, secret } = req.session;
+    return res.redirect(`${req.session.redirectTo}?token=${token}&secret=${secret}`);
+  })(req, res, next);
+});
 
 module.exports = { app };

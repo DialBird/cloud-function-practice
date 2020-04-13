@@ -9,6 +9,8 @@ passport.use(new TwitterStrategy({
   callbackURL: config.twitter.callback_url,
   passReqToCallback: true
 }, (req, token, tokenSecret, profile, done) => {
+  req.session.token = token;
+  req.session.secret = tokenSecret;
   done(null, profile);
 }));
 passport.serializeUser((user, done) => {
