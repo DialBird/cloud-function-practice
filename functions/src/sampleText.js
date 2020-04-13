@@ -1,6 +1,4 @@
 export const sampleText = word => (`
 hello keisuke
-${word}!!
-hogefuga
-wasshoi
+this is your word: ${word}!!
 `);

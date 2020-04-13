@@ -22,9 +22,13 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 });
 
 exports.word = functions.https.onRequest((request, response) => {
+  response.send(sampleText(request.query.word));
+});
+
+exports.momentTest = functions.https.onRequest((request, response) => {
   const day = moment().tz('UTC').format('DD');
   response.send(day);
-});
+})
 
 exports.api = functions.https.onRequest(app);
 
