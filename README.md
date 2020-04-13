@@ -5,3 +5,4 @@
 - GETパラメーターの情報をつかう関数（word）
 - moment-timezoneの実行確認（momentTest）
 - express x passport.jsによる、Twitter認証
+- Twitterクライアントアプリを使って、Tweet（tweet）
