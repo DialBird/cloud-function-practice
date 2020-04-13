@@ -20,24 +20,8 @@ app.get('/auth/twitter', (req, res) => {
   req.session.uid = req.query.uid;
   passport.authenticate('twitter')(req, res);
 })
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: config.session.redirect_url }), (req, res) => {
-    res.redirect(config.session.redirect_url);
-  });
-
-// app.post('/tweet', (req, res) => {
-//   const { word, accessKey, accessSecret } = req.body;
-//   cnsole.log('word', word);
-//   const client = twitter(accessKey, accessSecret);
-//
-//   client.post('statuses/update', {status: `this is ${word}`}, (error, tweet, response) => {
-//     if (!error) {
-//       res.send({ title: 'Express', tweet })
-//     }
-//     else {
-//       res.send({ error: "this is error: " + error })
-//     }
-//   });
-// });
+app.get('/auth/twitter/callback', (req, res) => {
+  passport.authenticate('twitter', { successRedirect: config.session.redirect_url, failureRedirect: config.session.redirect_url })(req, res);
+});
 
 module.exports = { app };
