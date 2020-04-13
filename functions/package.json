@@ -8,7 +8,7 @@
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "rm -rf ./dist && npm run build && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
