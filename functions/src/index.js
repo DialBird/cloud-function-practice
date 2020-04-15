@@ -20,15 +20,14 @@ exports.momentTest = functions.https.onRequest((request, response) => {
 })
 
 exports.tweet = functions.https.onRequest((req, res) => {
-  const { word, accessKey, accessSecret } = req.body;
+  const { word, accessKey, accessSecret, redirectTo } = req.body;
   const client = twitterClient(accessKey, accessSecret);
 
   client.post('statuses/update', {status: `this is ${word}`}, (error, tweet, response) => {
     if (!error) {
-      res.send({ title: 'Express', tweet })
-    }
-    else {
-      res.send({ error: "this is error: " + error })
+      res.redirect(redirectTo)
+    } else {
+      res.redirect(redirectTo)
     }
   });
 });
