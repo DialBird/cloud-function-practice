@@ -10,6 +10,11 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
 });
 
+exports.helloWorldOnCall = functions.https.onCall((data, context) => {
+  const headers = context.rawRequest.headers;
+  return { dream: 'foofoo', ag: ['abc','def'] };
+});
+
 exports.word = functions.https.onRequest((request, response) => {
   response.send(sampleText(request.query.word));
 });
