@@ -65,5 +65,6 @@ node_modules/
 .env
 
 functions/dist/*
+functions/.runtimeconfig.json
 
 data.json
